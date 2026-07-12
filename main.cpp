@@ -1,4 +1,4 @@
-#include "counterpresenter.h"
+#include "hostbridge.h"
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
@@ -8,12 +8,10 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
-    CounterPresenter presenter1(QStringLiteral("Presenter 1"));
-    CounterPresenter presenter2(QStringLiteral("Presenter 2"));
+    HostBridge host;
 
     QQmlApplicationEngine engine;
-    engine.rootContext()->setContextProperty(QStringLiteral("presenter1"), &presenter1);
-    engine.rootContext()->setContextProperty(QStringLiteral("presenter2"), &presenter2);
+    engine.rootContext()->setContextProperty(QStringLiteral("host"), &host);
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
     engine.loadFromModule("GuiApplication", "Main");

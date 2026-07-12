@@ -4,10 +4,10 @@ import QtQuick.Layouts
 
 ApplicationWindow {
     id: root
-    width: 780
-    height: 500
+    width: 820
+    height: 520
     visible: true
-    title: qsTr("Manager / Presenter")
+    title: qsTr("Host — IPC")
 
     ColumnLayout {
         anchors.fill: parent
@@ -17,7 +17,8 @@ ApplicationWindow {
         Label {
             Layout.fillWidth: true
             wrapMode: Text.WordWrap
-            text: qsTr("Her panel: Manager (ayrı thread) → Presenter (main thread, for ile QML'e yazar).")
+            text: qsTr("Host UI. Sub-apps: subapp-a / subapp-b (separate exe).\nIPC: %1")
+                  .arg(host.serverName)
         }
 
         RowLayout {
@@ -35,13 +36,13 @@ ApplicationWindow {
                     spacing: 8
 
                     Label {
-                        text: presenter1.title
+                        text: qsTr("subapp-a")
                         font.bold: true
                         font.pixelSize: 16
                     }
 
                     Label {
-                        text: qsTr("Sayaç: %1").arg(presenter1.count)
+                        text: qsTr("Sayaç: %1").arg(host.count1)
                         font.pixelSize: 22
                     }
 
@@ -53,14 +54,14 @@ ApplicationWindow {
                         TextArea {
                             readOnly: true
                             wrapMode: TextEdit.Wrap
-                            text: presenter1.displayText
+                            text: host.text1
                         }
                     }
 
                     Button {
                         Layout.fillWidth: true
-                        text: presenter1.running ? qsTr("Durdur") : qsTr("Başlat")
-                        onClicked: presenter1.running ? presenter1.stop() : presenter1.start()
+                        text: host.running1 ? qsTr("Durdur") : qsTr("Başlat")
+                        onClicked: host.running1 ? host.stopWorker1() : host.startWorker1()
                     }
                 }
             }
@@ -75,13 +76,13 @@ ApplicationWindow {
                     spacing: 8
 
                     Label {
-                        text: presenter2.title
+                        text: qsTr("subapp-b")
                         font.bold: true
                         font.pixelSize: 16
                     }
 
                     Label {
-                        text: qsTr("Sayaç: %1").arg(presenter2.count)
+                        text: qsTr("Sayaç: %1").arg(host.count2)
                         font.pixelSize: 22
                     }
 
@@ -93,14 +94,14 @@ ApplicationWindow {
                         TextArea {
                             readOnly: true
                             wrapMode: TextEdit.Wrap
-                            text: presenter2.displayText
+                            text: host.text2
                         }
                     }
 
                     Button {
                         Layout.fillWidth: true
-                        text: presenter2.running ? qsTr("Durdur") : qsTr("Başlat")
-                        onClicked: presenter2.running ? presenter2.stop() : presenter2.start()
+                        text: host.running2 ? qsTr("Durdur") : qsTr("Başlat")
+                        onClicked: host.running2 ? host.stopWorker2() : host.startWorker2()
                     }
                 }
             }
